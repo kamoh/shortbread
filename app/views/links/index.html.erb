@@ -1,0 +1,8 @@
+Shortbread URL Shortener
+<br><br>
+<%= form_for @link do |f| %>
+  <%= f.label :original_url %><br>
+  <%= f.text_field :original_url %><br>
+
+  <%= f.submit "Shorten!" %>
+<% end %>
