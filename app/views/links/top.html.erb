@@ -1,4 +1,6 @@
 Top 100 Visited Links<br><br>
 <% @links.order("times_visited").reverse[0...100].each do |site| %>
-  <%= site.original_url %>: <%= pluralize(site.times_visited, "visit") %><br>
+  <%= site.original_url %>: <%= pluralize(site.times_visited, "visit") %> | 
+  <%= "#{Link::URL_BASE}#{site.short_url}" %> <br>
 <% end %>
+

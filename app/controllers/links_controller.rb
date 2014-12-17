@@ -24,7 +24,16 @@ require 'pry'
   def create
     @link = Link.new(link_params)
     verified_link = @link.create_base_url(@link)
-    redirect_to link_path(verified_link)
+    
+    respond_to do |format|
+      if @link.save
+        format.html { redirect_to link_path(verified_link), notice: 'Link was successfully created.' }
+        format.json
+      else
+        format.html { render action: 'new' }
+        format.json { render :json => { :error => @link.errors.full_messages }, :status => 422 }
+      end
+    end
   end
 
   def show
