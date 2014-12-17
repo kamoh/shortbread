@@ -50,3 +50,5 @@ gem 'binding_of_caller'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# For Heroku features
+gem 'rails_12factor', group: :production
