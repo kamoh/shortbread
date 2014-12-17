@@ -2,6 +2,10 @@ class LinksController < ApplicationController
 
 require 'pry'
 
+  def index
+    redirect_to links_new_path
+  end
+
   def retrieve
     if @link = Link.find_by(short_url: params[:unknown])
       forward(@link)
@@ -23,7 +27,7 @@ require 'pry'
 
   def create
     @link = Link.new(link_params)
-    verified_link = @link.create_base_url(@link)
+    verified_link = @link.create_short_url(@link)
     
     respond_to do |format|
       if @link.save

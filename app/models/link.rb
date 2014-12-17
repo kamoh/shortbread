@@ -12,32 +12,17 @@ validates :original_url, format: {
   message: "Not a valid URL"
 }
 
-  def create_base_url(link)
-    short_url = Base64.encode64(link.original_url).gsub(" ","").gsub("=","").strip
-    short_url = shorten_base_url(short_url, link)
-    retrieved_link = Link.find_by(short_url: short_url)
-    # If the link has already been shortened, use that entry
+  def create_short_url(link)
+    keygen_source = ('a'..'z').to_a.zip('A'..'Z').to_a.zip(1..9).flatten.compact
+    retrieved_link = Link.find_by(original_url: original_url)
+    # If the link has already been added to the db and shortened, use that link
     if retrieved_link 
       link = retrieved_link
     else
+      short_url = keygen_source.shuffle[0,8].join
       link.update(short_url: short_url)
     end
     link
-  end
-
-  def shorten_base_url(short_url, link)
-    if short_url.length < 9
-      short_url = short_url += short_url 
-    end
-    shortened_base_url = ""
-    marker = link.original_url.length.to_s[-1]
-    lower_bound = -marker.to_i
-    upper_bound = -marker.to_i-4
-    until shortened_base_url == nil
-      lower_bound -= 1
-      shortened_base_url = Link.find_by(short_url: short_url[lower_bound..upper_bound])
-    end
-    shortened_base_url = short_url[lower_bound..upper_bound]
   end
 
 end
