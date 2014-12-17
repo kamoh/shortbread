@@ -23,7 +23,7 @@ require 'pry'
 
   def create
     @link = Link.new(link_params)
-    verified_link = @link.create_short_url(@link)
+    verified_link = @link.create_base_url(@link)
     redirect_to link_path(verified_link)
   end
 
