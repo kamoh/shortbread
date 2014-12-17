@@ -2,5 +2,5 @@ Link show page
 <br><br>
 Link id: <%= @link.id %><br>
 Original URL: <%= @link.original_url %><br>
-Short URL: <%= @link.short_url %><br>
+Short URL: <%= "#{Link::URL_BASE}#{@link.short_url}" %><br>
 Times Visited: <%= @link.times_visited %>
