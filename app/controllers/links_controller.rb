@@ -31,6 +31,10 @@ require 'pry'
     @link = Link.find(params[:id])
   end
 
+  def top
+    @links = Link.all
+  end
+
   private
 
   def link_params

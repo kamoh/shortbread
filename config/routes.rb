@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'links/:id' => 'links#show'
 
+  get '/top' => 'links#top'
+
   get '/*unknown' => 'links#retrieve'
 
   root 'links#new'
