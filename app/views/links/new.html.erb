@@ -1,5 +1,6 @@
 <header class="intro">
   <div class="intro-body">
+    <%= image_tag '/shortbread.png' %>
     <div class="container">
       <h1 class="brand-heading">shrtb.red</h1>
       <div class="col-md-8 col-md-offset-2">
@@ -11,10 +12,11 @@
               <% end %>
             </ul>
           <% end %>
-          
+
           <%= f.label :original_url, "A delicious URL shortener" , class: "intro-text"%><br><br>
-          <%= f.text_field :original_url, required: true %><br><br>
-          <%= f.submit "Shorten!" %>
+          <%= f.text_field :original_url, required: true, placeholder: 'Feed me a link...' %><br><br>
+          <%= f.submit "Shorten!", class: "btn btn-default btn-lg" %>
+
         <% end %>
       </div>
     </div>

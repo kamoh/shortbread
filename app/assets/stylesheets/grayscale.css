@@ -23,11 +23,12 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 35px;
+    /*margin: 0 0 35px;*/
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
     letter-spacing: 1px;
+    margin: auto;
 }
 
 p {
@@ -255,9 +256,10 @@ a:focus {
 
 #top-links {
     width: 100%;;
-    padding: 50px 0;
+    padding: 50px 100px;
     color: #000;
     margin-top: 100px;
+    margin-left: 2%;
     background: url(../img/downloads-bg.jpg) no-repeat center center scroll;
     background-color: #fff;
     /*overflow: scroll;*/
@@ -275,7 +277,7 @@ a:focus {
 
 @media(min-width:767px) {
     .content-section {
-        padding-top: 250px;
+        /*padding-top: 250px;*/
     }
 
     .top-links {

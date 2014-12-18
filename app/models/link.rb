@@ -1,8 +1,5 @@
 class Link < ActiveRecord::Base
 
-require 'pry'
-require 'base64'
-
 URL_BASE = "shrtb.red/"
 
 validates_presence_of :original_url
