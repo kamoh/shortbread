@@ -6,6 +6,14 @@ A delicious URL shortener. See it live at http://shrtb.red.
 
 Setup
 
+Shortbread is made with Ruby on Rails.
+
+Install rails:
+
+``` ruby
+sudo gem install rails
+```
+
 Set up the database:
 
 ``` ruby
