@@ -9,13 +9,13 @@ Setup
 
 Set up the database
 
-```ruby
+``` ruby
 rake db:migrate
 ```
 
 Set up your gems
 
-```ruby
+``` ruby
 bundle install
 ```
 
