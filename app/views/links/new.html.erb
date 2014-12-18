@@ -7,15 +7,13 @@
         <%= form_for @link do |f| %>
           <%= f.label :original_url, "A delicious URL shortener" , class: "intro-text"%><br><br>
           <% if @link.errors.any? %>
-              <% @link.errors.each do |msg| %>
-                <div><p class="error">We can't shorten that link! It's not a valid URL.
-                  </p><%= image_tag '/sad-gingerbread.png', width: 100, height: 100 %></div><br>
-              <% end %>
+            <% @link.errors.each do |msg| %>
+              <div><p class="error">We can't shorten that link! It's not a valid URL.
+              </p><%= image_tag '/sad-gingerbread.png', width: 100, height: 100 %></div><br>
+            <% end %>
           <% end %>
-
           <%= f.text_field :original_url, required: true, placeholder: 'Feed me a link...' %><br><br>
           <%= f.submit "Shorten!", class: "btn btn-default btn-lg" %>
-
         <% end %>
       </div>
     </div>
