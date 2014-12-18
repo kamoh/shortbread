@@ -14,16 +14,16 @@ Install rails:
 sudo gem install rails
 ```
 
-Set up the database:
-
-``` ruby
-rake db:migrate
-```
-
 Set up your gems:
 
 ``` ruby
 bundle install
+```
+
+Set up the database:
+
+``` ruby
+rake db:migrate
 ```
 
 This app uses Postgres for the database.
