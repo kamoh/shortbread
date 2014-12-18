@@ -5,7 +5,6 @@
         <h1>HERE YOU GO</h1><br><br>
         <!-- Link id: <%#= @link.id %><br> -->
         <!-- Original URL: <%#= @link.original_url %><br> -->
-        <%= binding.pry %>
         <% shortened_url = "http://#{Link::URL_BASE}#{@link.short_url}" %>
         <div id="short-url"><%= link_to shortened_url, shortened_url, target: "blank" %></div>
         <!-- Times Visited: <%#= @link.times_visited %> -->
