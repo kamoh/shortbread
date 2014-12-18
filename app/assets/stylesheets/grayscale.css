@@ -383,3 +383,17 @@ input {
     padding-right: 15px;
     padding-left: 15px;
 }
+
+::-moz-selection { /* Code for Firefox */
+    color: #777;
+    background: #FFB347;
+}
+
+::selection {
+    color: #777;
+    background: #FFB347;
+}
+
+.error {
+    margin: 0px 0px 20px;
+}
