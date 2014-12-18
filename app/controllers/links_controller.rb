@@ -1,9 +1,7 @@
 class LinksController < ApplicationController
 
-require 'pry'
-
   def index
-    redirect_to links_new_path
+    redirect_to root_path
   end
 
   def retrieve
@@ -12,6 +10,10 @@ require 'pry'
     else
       redirect_to root_path
     end
+  end
+
+  def links
+    redirect_to root_path
   end
 
   def forward(link)
@@ -41,7 +43,11 @@ require 'pry'
   end
 
   def show
-    @link = Link.find(params[:id])
+    begin
+      @link = Link.find(params[:id])
+    rescue
+      redirect_to root_path
+    end
   end
 
   def top
