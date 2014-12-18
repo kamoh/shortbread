@@ -2,31 +2,20 @@
 
 Shortbread
 
-A delicious URL shortener.
+A delicious URL shortener. See it live at http://shrtb.red.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Setup
+====
 
-Things you may want to cover:
+Set up the database: rake db:migrate.
 
-* Ruby version
+Set up your gems: bundle install
 
-* System dependencies
+This app uses Postgres for database.
 
-* Configuration
+You'll need a domain to point shortened links to. In link.rb, replace URL_BASE = "shrtb.red/" with whatever domain you want to serve shortened URLs from.
 
-* Database creation
+Shortened URLs are case-sensitive, so bear that in mind.
 
-* Database initialization
+The site tracks the top 100 most visited links. You can adjust this in the constant MOST_VISITED_LIMIT in link.rb.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
