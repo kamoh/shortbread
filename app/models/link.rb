@@ -10,11 +10,19 @@ validates :original_url, format: {
   message: "Not a valid URL"
 }
 
-  def create_short_url(link)
-    link = sanitize_link(link)
+attr_accessor :link
+
+  def setup_short_url(link)
+    # Sets up attr_accessor
+    @link = link
+    create_short_url
+  end
+
+  def create_short_url 
+    link = sanitize_link 
     keygen_source = ('a'..'z').to_a.zip('A'..'Z').to_a.zip(1..9).flatten.compact
     retrieved_link = Link.find_by(original_url: original_url)
-    # If the link has already been added to the db and shortened, use that link
+    # If the link has already been added to the db and shortened, use that record
     if retrieved_link 
       link = retrieved_link
     else
@@ -24,13 +32,10 @@ validates :original_url, format: {
     link
   end
 
-  def sanitize_link(link)
-    if link.original_url.include?('http://') || link.original_url.include?('https://')
-      return link
-    else
-      link.original_url = "http://#{link.original_url}"
-      # link.update(original_url: "http://#{link.original_url}")
-    end
+  def sanitize_link
+    # Ensure the original link has http or https at the start
+    return link if link.original_url.include?('http://') || link.original_url.include?('https://')
+    link.original_url = "http://#{link.original_url}"
     link
   end
 

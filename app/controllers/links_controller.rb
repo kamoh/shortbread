@@ -29,7 +29,7 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
-    verified_link = @link.create_short_url(@link)
+    verified_link = @link.setup_short_url(@link)
     
     respond_to do |format|
       if @link.save
