@@ -5,15 +5,14 @@
       <h1 class="brand-heading">shrtb.red</h1>
       <div class="col-md-8 col-md-offset-2">
         <%= form_for @link do |f| %>
+          <%= f.label :original_url, "A delicious URL shortener" , class: "intro-text"%><br><br>
           <% if @link.errors.any? %>
-            <ul>
               <% @link.errors.each do |msg| %>
-                <li>We can't shorten that link! It's not a valid URL.</li>
+                <div><p class="error">We can't shorten that link! It's not a valid URL.
+                  </p><%= image_tag '/sad-gingerbread.png', width: 100, height: 100 %></div><br>
               <% end %>
-            </ul>
           <% end %>
 
-          <%= f.label :original_url, "A delicious URL shortener" , class: "intro-text"%><br><br>
           <%= f.text_field :original_url, required: true, placeholder: 'Feed me a link...' %><br><br>
           <%= f.submit "Shorten!", class: "btn btn-default btn-lg" %>
 
@@ -21,5 +20,4 @@
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </header>
