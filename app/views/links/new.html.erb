@@ -1,16 +1,23 @@
-Shortbread URL Shortener
-<br><br>
-<%= form_for @link do |f| %>
-  <% if @link.errors.any? %>
-  <ul>
-    <% @link.errors.each do |msg| %>
-    <li>We can't shorten that link! It's not a valid URL.</li>
-    <% end %>
-  </ul>
-  <% end %>
-
-  <%= f.label :original_url %><br>
-  <%= f.text_field :original_url, required: true %><br>
-
-  <%= f.submit "Shorten!" %>
-<% end %>
+<header class="intro">
+  <div class="intro-body">
+    <div class="container">
+      <h1 class="brand-heading">shrtb.red</h1>
+      <div class="col-md-8 col-md-offset-2">
+        <%= form_for @link do |f| %>
+          <% if @link.errors.any? %>
+            <ul>
+              <% @link.errors.each do |msg| %>
+                <li>We can't shorten that link! It's not a valid URL.</li>
+              <% end %>
+            </ul>
+          <% end %>
+          
+          <%= f.label :original_url, "A delicious URL shortener" , class: "intro-text"%><br><br>
+          <%= f.text_field :original_url, required: true %><br><br>
+          <%= f.submit "Shorten!" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</header>

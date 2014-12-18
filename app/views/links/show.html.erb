@@ -1,7 +1,14 @@
-Link show page
-<br><br>
-Link id: <%= @link.id %><br>
-Original URL: <%= @link.original_url %><br>
-<% shortened_url = "http://#{Link::URL_BASE}#{@link.short_url}" %>
-Short URL: <%= link_to shortened_url, shortened_url %><br>
-Times Visited: <%= @link.times_visited %>
+<header class="intro">
+  <div class="intro-body">
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-2">
+        <h1>HERE YOU GO</h1>
+        <!-- Link id: <%#= @link.id %><br> -->
+        <!-- Original URL: <%#= @link.original_url %><br> -->
+        <% shortened_url = "http://#{Link::URL_BASE}#{@link.short_url}" %>
+        <h2><%= link_to shortened_url, shortened_url, target: "blank" %></h2>
+        <!-- Times Visited: <%#= @link.times_visited %> -->
+      </div>
+    </div>
+  </div>
+</header>

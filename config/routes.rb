@@ -7,11 +7,13 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
+  get '/top' => 'links#top'
+
   get 'links' => 'links#new'
 
-  get 'links/:id' => 'links#show'
+  get 'about' => 'links#about'
 
-  get '/top' => 'links#top'
+  get 'links/:id' => 'links#show'
 
   get '/*unknown' => 'links#retrieve'
 

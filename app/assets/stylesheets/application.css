@@ -12,4 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require_bootstrap
+ *= require_bootstrap.min
+ *= require_grayscale
  */
