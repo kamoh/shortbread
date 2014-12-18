@@ -8,7 +8,7 @@
         <div class="col-md-3 top-100 h3 top-heading">Original URL</div>
         <div class="col-md-3 top-100 h3 top-heading">Visits</div>
         <div class="col-md-3 top-100 h3 top-heading">Short Url</div>
-      <% @links.order("times_visited").reverse[0...40].each do |site| %>
+      <% @links.order("times_visited").reverse[0...100].each do |site| %>
           <div class="col-md-2 top-100 h4 "><%= i %></div>
           <div class="col-md-3 top-100 h4">
             <%= site.original_url.length < 28 ? site.original_url : site.original_url[0..27]+"..." %>
