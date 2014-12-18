@@ -6,8 +6,8 @@
         <!-- Link id: <%#= @link.id %><br> -->
         <!-- Original URL: <%#= @link.original_url %><br> -->
         <%= binding.pry %>
-        <% shortened_url = "#{Link::URL_BASE}#{@link.short_url}" %>
-        <h2><%= link_to shortened_url, shortened_url, target: "blank" %></h2>
+        <% shortened_url = "http://#{Link::URL_BASE}#{@link.short_url}" %>
+        <div id="short-url"><%= link_to shortened_url, shortened_url, target: "blank" %></div>
         <!-- Times Visited: <%#= @link.times_visited %> -->
       </div>
     </div>

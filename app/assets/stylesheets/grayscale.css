@@ -397,3 +397,8 @@ input {
 .error {
     margin: 0px 0px 20px;
 }
+
+#short-url {
+    font-size: 30px;
+    font-weight: bold;
+}
