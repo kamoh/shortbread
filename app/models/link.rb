@@ -1,5 +1,7 @@
 class Link < ActiveRecord::Base
 
+require 'pry'
+
 URL_BASE = "shrtb.red/"
 MOST_VISITED_LIMIT = 100
 
@@ -33,9 +35,23 @@ attr_accessor :link
   end
 
   def sanitize_link
-    # Ensure the original link has http or https at the start
-    return link if link.original_url.include?('http://') || link.original_url.include?('https://')
-    link.original_url = "http://#{link.original_url}"
+    # binding.pry # test to sanitize to remove slash at the end
+    includes_https = false
+    # Remove dangling '/'
+    link.original_url = link.original_url[0..-2] if link.original_url.last == '/' 
+    # Remove 'http://'
+    link.original_url = link.original_url[7..-1] if link.original_url[0..6] == 'http://'
+    # Remove 'https://'
+    if link.original_url[0..7] == 'https://'
+      link.original_url = link.original_url[8..-1]
+      includes_https = true
+    end
+    # Remove 'www'
+    link.original_url = link.original_url[4..-1] if link.original_url[0..2] == 'www'
+    # Ensure the original link has 'http' or 'https' at the start
+    includes_https == true ? 
+      link.original_url = "https://#{link.original_url}" :
+      link.original_url = "http://#{link.original_url}"
     link
   end
 
