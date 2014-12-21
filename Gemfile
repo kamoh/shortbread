@@ -38,6 +38,12 @@ gem 'better_errors'
 # Use console in error pages
 gem 'binding_of_caller'
 
+group :test, :development do
+  # Rspec for testing
+  gem 'rspec-rails'
+end
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
