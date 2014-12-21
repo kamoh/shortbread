@@ -28,12 +28,15 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new(link_params)
-    verified_link = @link.setup_short_url(@link)
-    
+    @link = Link.new(link_params) # added in console
+    @link = @link.setup_short_url(@link)
+    unless Link.find_by(original_url: @link.original_url)
+      @link = Link.new(link_params)
+    end
+
     respond_to do |format|
       if @link.save
-        format.html { redirect_to link_path(verified_link), notice: 'Link was successfully created.' }
+        format.html { redirect_to link_path(@link), notice: 'Link was successfully created.' }
         format.json
       else
         format.html { render action: 'new' }

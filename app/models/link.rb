@@ -35,7 +35,7 @@ attr_accessor :link
   end
 
   def sanitize_link
-    # binding.pry # test to sanitize to remove slash at the end
+    # test to sanitize to remove slash at the end
     includes_https = false
     # Remove dangling '/'
     link.original_url = link.original_url[0..-2] if link.original_url.last == '/' 
