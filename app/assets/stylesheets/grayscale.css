@@ -409,6 +409,7 @@ input {
     white-space: nowrap;
 }
 
+
 @media(max-width:999px) {
     #top-links {
         padding: 0px;
@@ -440,4 +441,8 @@ input {
     .top-100 {
         overflow: hidden;
     }
+}
+
+.top-heading {
+    overflow: inherit;
 }
