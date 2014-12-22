@@ -405,7 +405,8 @@ input {
 
 .top-100 {
     font-size: 1.2em;
-    overflow:inherit;
+    overflow: inherit;
+    white-space: nowrap;
 }
 
 @media(max-width:999px) {
