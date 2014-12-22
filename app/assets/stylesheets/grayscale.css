@@ -444,5 +444,6 @@ input {
 }
 
 .top-heading {
-    overflow: inherit;
+    /*overflow: inherit;*/
+    white-space: normal;
 }
