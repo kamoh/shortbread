@@ -14,5 +14,8 @@
  *= require_self
  *= require_bootstrap
  *= require_bootstrap.min
+ *= require_font-awesome
+ *= require_font-awesome.min
  *= require_grayscale
+
  */

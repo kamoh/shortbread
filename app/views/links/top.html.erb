@@ -5,18 +5,19 @@
     <div id='top-100-box'>
       <% upper_bound = Link::MOST_VISITED_LIMIT %>
       <% i = 1 %>
-        <div class="col-md-2 top-100 h3 top-heading">Rank</div>
-        <div class="col-md-3 top-100 h3 top-heading">Original URL</div>
-        <div class="col-md-3 top-100 h3 top-heading">Visits</div>
-        <div class="col-md-3 top-100 h3 top-heading">Short Url</div>
+        <div class="col-xs-2 top-100 h3 top-heading rank">Rank</div>
+        <div class="col-xs-3 top-100 h3 top-heading orig-url">Original URL</div>
+        <div class="col-xs-3 top-100 h3 top-heading visits">Visits</div>
+        <div class="col-xs-3 top-100 h3 top-heading short-url">Short Url</div><br><br>
       <% @links.order("times_visited").reverse[0...upper_bound].each do |site| %>
-        <div class="col-md-2 top-100 h4 "><%= i %></div>
-        <div class="col-md-3 top-100 h4">
+      <br><br>
+        <div class="col-xs-2 top-100 h4 rank"><%= i %></div>
+        <div class="col-xs-3 top-100 h4 orig-url">
           <%= site.original_url.length < 25 ? site.original_url : site.original_url[0..25]+"..." %>
         </div>
-        <div class="col-md-3 top-100 h4"><%= pluralize(site.times_visited, "visit") %></div>
+        <div class="col-xs-3 top-100 h4 visits"><%= pluralize(site.times_visited, "visit") %></div>
           <% combined_url = "#{Link::URL_BASE}#{site.short_url}" %>
-        <div class="col-md-3 top-100 h4"><%= link_to combined_url, "http://#{combined_url}", target: 'blank' %></div>
+          <div class="col-xs-3 top-100 h4 short-url"><%= link_to combined_url, "http://#{combined_url}", target: 'blank' %></div>
         <% i += 1 %>
       <% end %>
     </div>

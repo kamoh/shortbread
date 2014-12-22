@@ -281,7 +281,7 @@ a:focus {
     }
 
     .top-links {
-        padding: 100px 0;
+        /*padding: 100px 0;*/
     }
 
     #map {
@@ -402,6 +402,41 @@ input {
     font-size: 30px;
     font-weight: bold;
 }
+
 .top-100 {
     font-size: 1.2em;
+    overflow:inherit;
+}
+
+@media(max-width:999px) {
+    #top-links {
+        padding: 0px;
+    }
+}
+
+@media(max-width:610px) {
+    .h4.short-url {
+        /*content:url(/round_cookie_small.png);*/
+        /*background-image: url(/round_cookie_small.png);*/
+        /*height: 55px;*/
+        /*top: -25px;*/
+    }
+    .h4.orig-url {
+        /*content:url(/link_small.png);*/
+        /*height: 55px;*/
+        /*top: -25px;*/
+    }
+    .short-url.cookie {
+        opacity: 0;
+        width: 150px;
+        height: 50px;
+        background-color: blue;
+        /*background-image: url(/round_cookie_small.png);*/
+    }
+}
+
+@media(max-width:810px){
+    .top-100 {
+        overflow: hidden;
+    }
 }
