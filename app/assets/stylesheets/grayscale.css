@@ -399,8 +399,9 @@ input {
 }
 
 #short-url {
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bold;
+    width:100%;
 }
 
 .top-100 {
@@ -434,6 +435,9 @@ input {
         height: 50px;
         background-color: blue;
         /*background-image: url(/round_cookie.png);*/
+    }
+    #short-url {
+        font-size:1.3em;
     }
 }
 
