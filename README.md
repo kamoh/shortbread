@@ -34,3 +34,11 @@ Shortened URLs are case-sensitive, so bear that in mind.
 
 The site tracks the top 100 most visited links. You can adjust this in the constant `MOST_VISITED_LIMIT` in link.rb.
 
+Test Suite
+
+This app uses Rspec. To run tests on the Link model, simply type:
+
+``` ruby
+rspec
+```
+
