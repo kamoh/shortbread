@@ -416,13 +416,13 @@ input {
 
 @media(max-width:610px) {
     .h4.short-url {
-        /*content:url(/round_cookie_small.png);*/
-        /*background-image: url(/round_cookie_small.png);*/
+        /*content:url(/round_cookie.png);*/
+        /*background-image: url(/round_cookie.png);*/
         /*height: 55px;*/
         /*top: -25px;*/
     }
     .h4.orig-url {
-        /*content:url(/link_small.png);*/
+        /*content:url(/link.png);*/
         /*height: 55px;*/
         /*top: -25px;*/
     }
@@ -431,7 +431,7 @@ input {
         width: 150px;
         height: 50px;
         background-color: blue;
-        /*background-image: url(/round_cookie_small.png);*/
+        /*background-image: url(/round_cookie.png);*/
     }
 }
 
