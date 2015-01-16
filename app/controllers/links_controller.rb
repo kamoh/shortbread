@@ -1,5 +1,7 @@
 class LinksController < ApplicationController
 
+  require 'pry'
+
   def index
     redirect_to root_path
   end
@@ -24,15 +26,11 @@ class LinksController < ApplicationController
 
   def new
     @link = Link.new
-    @links = Link.all
   end
 
   def create
-    @link = Link.new(link_params) # added in console
+    @link = Link.new(link_params) 
     @link = @link.setup_short_url(@link)
-    unless Link.find_by(original_url: @link.original_url)
-      @link = Link.new(link_params)
-    end
 
     respond_to do |format|
       if @link.save
