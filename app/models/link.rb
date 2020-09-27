@@ -2,9 +2,17 @@ class Link < ActiveRecord::Base
 
 require 'pry'
 
-URL_BASE = "shrtb.red/"
 MOST_VISITED_LIMIT = 100
+if ENV["URL_BASE"] == "" || ENV["URL_BASE"] == nil
+  URL_BASE = "shrtb.red"
+else
+  URL_BASE = ENV["URL_BASE"]
+end 
+if !/\/$/.match(URL_BASE)
+  URL_BASE +="/"
+end
 
+puts URL_BASE
 validates_presence_of :original_url
 
 validates :original_url, format: {

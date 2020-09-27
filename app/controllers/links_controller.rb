@@ -29,7 +29,7 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new(link_params) 
+    @link = Link.new(**link_params) 
     @link = @link.setup_short_url(@link)
 
     respond_to do |format|
