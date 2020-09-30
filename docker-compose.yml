@@ -1,0 +1,53 @@
+# Use the file format compatible with Docker Compose 3.8
+version: "3.8"
+services:
+  # Stand up the database to be used by shortbred. Using default port
+  database:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      SHRTBRED_DB: shrtbred
+      POSTGRES_USER: shrtbred
+      POSTGRES_PASSWORD: shrtbred
+    volumes:
+      - ./tmp/db_data:/var/lib/postgresql/data
+  shrtbred:
+    # The root directory from which we're building.
+    image: shrtbred:latest
+    restart: always
+    # This makes it so any code changes inside the project
+    # directory get synced with Docker. Without this line,
+    # we'd have to restart the container every time we
+    # changed a file.
+    # volumes:
+      # - .:/code:cached
+
+    # The command to be run when we run "docker-compose up".
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+
+    # Expose port 3000.
+    ports:
+      - "3100:3100"
+
+    # Specify that this container depends on the other
+    # container which we've called "database".
+    depends_on:
+      - database
+
+    # Specify the values of the environment variables
+    # used in this container.
+    environment:
+      RAILS_ENV: production
+      # Postgres configuration section.
+      SHRTBRED_DATABASE_NAME: shrtbred
+      SHRTBRED_DATABASE_USER: shrtbred
+      SHRTBRED_DATABASE_PASSWORD: shrtbred
+      SHRTBRED_DATABASE_HOST: database
+      # The port that the ruby server will be listening on. Defaults to 3000 by default
+      SHRTBRED_PORT: 3100
+      # Used for setting the base url. If it's not provided it will use shrtb.red by default
+      URL_BASE: localhost:3100
+# Declare the volumes that our application uses.
+volumes:
+  db_data:

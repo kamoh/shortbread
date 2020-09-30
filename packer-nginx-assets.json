@@ -1,0 +1,56 @@
+{
+    "variables": {
+        "dockerize_version": "v0.6.1",
+        "group_id": "1000",
+        "user_id": "1000",
+        "username": "nginx"
+    },
+    "provisioners": [
+        {
+            "type": "shell-local",
+            "inline": [
+                "./bin/rails assets:precompile"
+            ]
+        },
+        {
+            "type": "file",
+            "sources": [
+                "./public"
+            ],
+            "destination": "/var/www/shrtbrd/"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "addgroup --gid {{user `group_id`}} {{user `username`}}",
+                "adduser --disabled-password --gecos '' --uid {{user `group_id`}} --gid {{user `group_id`}} {{user `username`}}",
+                "wget https://github.com/jwilder/dockerize/releases/download/{{user `dockerize_version`}}/dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz ",
+                "tar -C /usr/local/bin -xzvf dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz",
+                "rm dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz"
+            ]
+        }
+    ],
+    "builders": [
+        {
+            "type": "docker",
+            "image": "nginx",
+            "commit": true,
+            "changes": [
+                "USER {{user `username`}}",
+                "WORKDIR /var/www/shrtbrd/",
+                "ENV SHRTBRED_host shrtbred",
+                "ENV SHRTBRED_PORT 3000",
+                "EXPOSE 3000",
+                "ONBUILD RUN date",
+                "CMD [ \"nginx\", \"-g\", \"daemon off;\" ]"
+            ]
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "repository": "shrtbred",
+            "tag": "latest"
+        }
+    ]
+}

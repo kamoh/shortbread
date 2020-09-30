@@ -19,16 +19,21 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  adapter: postgresql
-  pool: 5
+  host: <%= ENV['SHRTBRED_DATABASE_HOST']  %>
+  port: <%= ENV['SHRTBRED_DATABASE_PORT']  %>
+  database: <%= ENV['SHRTBRED_DATABASE_NAME']  %>
+  user: <%= ENV['SHRTBRED_DATABASE_USER']  %>
+  password: <%= ENV['SHRTBRED_DATABASE_PASSWORD'] %>
+  pool: <%= ENV['SHRTBRED_DATABASE_POOL'] %>
   timeout: 5000
 
 development:
   <<: *default
+  host: localhost
+  port: 5432
   database: shrtbred_development
-  adapter: postgresql
-  pool: 5
-  timeout: 5000
+  user: postgres
+  password: ''
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -62,9 +67,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: shrtbred_test
-  pool: 5
-  timeout: 5000
+  host: localhost
+  port: 5432
+  database: shrtbred_tst
+  user: postgres
+  password: 
+ 
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -87,9 +95,4 @@ test:
 #
 production:
   <<: *default
-  adapter: postgresql
-  database: shrtbred_production
-  # username: shrtbred
-  # password: <%= ENV['SHRTBRED_DATABASE_PASSWORD'] %>
-  pool: 5
-  timeout: 5000
+

@@ -1,0 +1,83 @@
+{
+    "variables": {
+        "dockerize_version": "v0.6.1",
+        "group_id": "1000",
+        "user_id": "1000",
+        "username": "shrtbred"
+    },
+    "provisioners": [
+        {
+            "type": "file",
+            "sources": [
+                "./app",
+                "./bin",
+                "./config",
+                "./db",
+                "./lib",
+                "./public",
+                "./spec",
+                "./vendor"
+            ],
+            "destination": "/opt/app/"
+        },
+        {
+            "type": "file",
+            "sources": [
+                "./.rspec",
+                "./config.ru",
+                "./entrypoint.sh",
+                "./Gemfile",
+                "./Gemfile.lock",
+                "./Procfile",
+                "./Rakefile",
+                "./README.md"
+            ],
+            "destination": "/opt/app/"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "addgroup --gid {{user `group_id`}} {{user `username`}}",
+                "adduser --disabled-password --gecos '' --uid {{user `group_id`}} --gid {{user `group_id`}} {{user `username`}}",
+                "wget https://github.com/jwilder/dockerize/releases/download/{{user `dockerize_version`}}/dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz ",
+                "tar -C /usr/local/bin -xzvf dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz",
+                "rm dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz",
+                "curl -sL https://deb.nodesource.com/setup_12.x | bash - ",
+                "apt install -y nodejs",
+                "gem install rails bundler",
+                "cd /opt/app && bundle install",
+                "chmod +x /opt/app/entrypoint.sh",
+                "chown -R {{user `username`}}:{{user `username`}} /opt/app"
+            ]
+        }
+    ],
+    "builders": [
+        {
+            "type": "docker",
+            "image": "ruby:2.7-buster",
+            "commit": true,
+            "changes": [
+                "USER {{user `username`}}",
+                "WORKDIR /opt/app",
+                "ENV RAILS_ENV production",
+                "ENV SHRTBRED_DATABASE_NAME shrtbred",
+                "ENV SHRTBRED_DATABASE_USER shrtbred",
+                "ENV SHRTBRED_DATABASE_PASSWORD shrtbred",
+                "ENV SHRTBRED_DATABASE_HOST localhost",
+                "ENV SHRTBRED_DATABASE_PORT 5432",
+                "ENV SHRTBRED_PORT 3000",
+                "EXPOSE 3000",
+                "ONBUILD RUN date",
+                "CMD [\"bash]\",\"-c\"]",
+                "ENTRYPOINT /opt/app/entrypoint.sh"
+            ]
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "docker-tag",
+            "repository": "shrtbred",
+            "tag": "latest"
+        }
+    ]
+}
