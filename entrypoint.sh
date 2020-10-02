@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
 SHRTBRED_PORT=${SHRTBRED_PORT:-3000}
@@ -21,7 +21,7 @@ echo "   SEED    : $SHRTBRED_SEED_DATA "
 $(dockerize -wait tcp://$SHRTBRED_DATABASE_HOST:$SHRTBRED_DATABASE_PORT)
 
 echo "== Waiting a 30 seconds for postgres to become available =="
-# sleep 30
+sleep 30
 
 ./bin/rails db:prepare
 ./bin/rails log:clear tmp:clear
@@ -32,7 +32,7 @@ if [[ $RAILS_ENV == "production" && $SECRET_KEY_BASE == "" ]] ;then
 fi
 
 echo ""
-if [[ -n $SHRTBRED_SEED_DATA ]] ; then 
+if [ "$SHRTBRED_SEED_DATA" = true ] ; then 
 echo "== Populating the environment with seed data =="
 rails db:seed 
 echo "== Finished Populating the environment with seed data =="
@@ -41,4 +41,4 @@ echo "== Will not try to populate environment with seed information =="
 fi
 echo ""
 
-rails s -p $SHRTBRED_PORT -b '0.0.0.0'
+./bin/rails s -p $SHRTBRED_PORT -b '0.0.0.0'

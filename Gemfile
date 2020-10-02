@@ -41,6 +41,7 @@ gem 'better_errors'
 # Use console in error pages
 gem 'binding_of_caller'
 
+
 group :test, :development do
   # Rspec for testing
   gem 'rspec-rails'

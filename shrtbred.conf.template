@@ -1,6 +1,12 @@
 server {  
    # define your domain  
-   listen ${LISTEN_PORT};
+   {{if isTrue .Env.GENERATE_SSL_CERT }}
+      listen {{default .Env.LISTEN_PORT "3000"}} ssl http2;
+      ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+      ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+   {{else}}
+      listen {{default .Env.LISTEN_PORT "3000"}};
+   {{end}}
    # server_name *;   
    # define the public application root  
    root   /var/www/shrtbred/public;  
@@ -40,6 +46,6 @@ server {
       proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;         
       proxy_set_header Host $http_host;    
       proxy_redirect off;    
-      proxy_pass http://${SHRTBRED_HOST}:${SHRTBRED_PORT};  
+      proxy_pass http://{{default .Env.SHRTBRED_HOST "shrtbred"}}:{{default .Env.SHRTBRED_PORT "3100"}};  
    }
 }

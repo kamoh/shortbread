@@ -13,15 +13,14 @@ services:
     volumes:
       - ./tmp/db_data:/var/lib/postgresql/data
   nginx:
-    image: shrtbred-nginx:latest
+    image: jdziat/shrtbred-nginx:latest
     restart: always
-    depends_on:
-      - shrtbred
+    depends_on: []
+      # - shrtbred
     ports:
       - "3000:3000"
-    expose: 
-      - 3000
     environment:
+      GENERATE_SSL_CERT: "false"
       SHRTBRED_HOST: shrtbred
       SHRTBRED_PORT: 3100
       LISTEN_PORT: 3000
@@ -30,7 +29,7 @@ services:
       - ./tmp/nginx/logs/:/var/log/nginx
   shrtbred:
     # The root directory from which we're building.
-    image: shrtbred:latest
+    image: jdziat/shrtbred:latest
     restart: always
     # This makes it so any code changes inside the project
     # directory get synced with Docker. Without this line,
@@ -56,7 +55,7 @@ services:
     # Specify the values of the environment variables
     # used in this container.
     environment:
-      RAILS_ENV: production
+      RAILS_ENV: alpha
       # Postgres configuration section.
       SECRET_KEY_BASE: b0b7b52a1b4f40cd38a235572b1b3c55e1cc734649b5168a80335d7171c32bc885a98a8483b59ad00f1bc8a66d6a4c015ec2d0b386da5ae54bb4754778ece57c
       SHRTBRED_DATABASE_NAME: shrtbred
@@ -67,6 +66,16 @@ services:
       SHRTBRED_PORT: 3100
       # Used for setting the base url. If it's not provided it will use shrtb.red by default
       URL_BASE: localhost:3000
+    volumes:
+      - ./tmp/logs/shrtbred:/opt/shrtbred/log
+  # Standing up minio for sample scripts
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: test
+    volumes:
+      - ./tmp/minio:/data
 # Declare the volumes that our application uses.
 volumes:
   db_data:

@@ -96,3 +96,6 @@ test:
 production:
   <<: *default
 
+alpha:
+  <<: *default
+

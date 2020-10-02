@@ -3,7 +3,9 @@
         "dockerize_version": "v0.6.1",
         "group_id": "1000",
         "user_id": "1000",
-        "username": "shrtbred"
+        "username": "shrtbred",
+        "docker_hub_user":"{{env `DOCKER_HUB_USER`}}",
+        "docker_hub_password":"{{env `DOCKER_HUB_PASSWORD`}}"
     },
     "provisioners": [
         {
@@ -74,16 +76,23 @@
                 "ENV SHRTBRED_PORT 3000",
                 "EXPOSE 3000",
                 "ONBUILD RUN date",
-                "CMD [\"bash]\",\"-c\"]",
-                "ENTRYPOINT /opt/shrtbred/entrypoint.sh"
+                "ENTRYPOINT [\"bash\",\"-c\"]",
+                "CMD [\"/opt/shrtbred/entrypoint.sh\"]"
             ]
         }
     ],
     "post-processors": [
-        {
+        [{
             "type": "docker-tag",
-            "repository": "shrtbred",
+            "repository": "jdziat/shrtbred",
             "tags": "latest"
-        }
+        }, 
+        {
+            "type": "docker-push",
+            "login":true,
+            "login_username":"{{user `docker_hub_user`}}",
+            "login_password":"{{user `docker_hub_password`}}"
+          }
+        ]
     ]
 }
