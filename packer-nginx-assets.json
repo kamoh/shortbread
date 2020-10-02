@@ -1,9 +1,7 @@
 {
     "variables": {
         "dockerize_version": "v0.6.1",
-        "group_id": "1000",
-        "user_id": "1000",
-        "username": "nginx"
+        "port": "3000"
     },
     "provisioners": [
         {
@@ -13,44 +11,53 @@
             ]
         },
         {
-            "type": "file",
-            "sources": [
-                "./public"
-            ],
-            "destination": "/var/www/shrtbrd/"
-        },
-        {
             "type": "shell",
             "inline": [
-                "addgroup --gid {{user `group_id`}} {{user `username`}}",
-                "adduser --disabled-password --gecos '' --uid {{user `group_id`}} --gid {{user `group_id`}} {{user `username`}}",
+                "mkdir -p /var/www/shrtbred/log",
+                "mkdir -p /etc/nginx/templates/",
+                "rm -f /etc/nginx/conf.d/default.conf",
                 "wget https://github.com/jwilder/dockerize/releases/download/{{user `dockerize_version`}}/dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz ",
                 "tar -C /usr/local/bin -xzvf dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz",
                 "rm dockerize-linux-amd64-{{user `dockerize_version`}}.tar.gz"
             ]
+        },
+        {
+            "type": "file",
+            "sources": [
+                "./public"
+            ],
+            "destination": "/var/www/shrtbred/"
+        },
+        {
+            "type": "file",
+            "sources": [
+                "./shrtbred.conf.template"
+            ],
+            "destination": "/etc/nginx/templates/default.conf.template"
         }
     ],
     "builders": [
         {
             "type": "docker",
-            "image": "nginx",
+            "image": "nginx:1.19.2",
             "commit": true,
             "changes": [
-                "USER {{user `username`}}",
-                "WORKDIR /var/www/shrtbrd/",
-                "ENV SHRTBRED_host shrtbred",
+                "ENV LISTEN_PORT {{user `port`}}",
+                "ENV GENERATE_SSL_CERT false",
+                "ENV SHRTBRED_HOST shrtbred",
                 "ENV SHRTBRED_PORT 3000",
-                "EXPOSE 3000",
-                "ONBUILD RUN date",
-                "CMD [ \"nginx\", \"-g\", \"daemon off;\" ]"
+                "EXPOSE {{user `port`}}",
+                "ENTRYPOINT [\"/docker-entrypoint.sh\"]",
+                "CMD [\"nginx-debug\", \"-g\", \"daemon off;\"]",
+                "ONBUILD RUN date"
             ]
         }
     ],
     "post-processors": [
         {
             "type": "docker-tag",
-            "repository": "shrtbred",
-            "tag": "latest"
+            "repository": "shrtbred-nginx",
+            "tags": "latest"
         }
     ]
 }

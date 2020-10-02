@@ -12,6 +12,22 @@ services:
       POSTGRES_PASSWORD: shrtbred
     volumes:
       - ./tmp/db_data:/var/lib/postgresql/data
+  nginx:
+    image: shrtbred-nginx:latest
+    restart: always
+    depends_on:
+      - shrtbred
+    ports:
+      - "3000:3000"
+    expose: 
+      - 3000
+    environment:
+      SHRTBRED_HOST: shrtbred
+      SHRTBRED_PORT: 3100
+      LISTEN_PORT: 3000
+    volumes:
+      - ./tmp/nginx/shrtbred:/var/www/shrtbred/log
+      - ./tmp/nginx/logs/:/var/log/nginx
   shrtbred:
     # The root directory from which we're building.
     image: shrtbred:latest
@@ -27,6 +43,8 @@ services:
     # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
 
     # Expose port 3000.
+    expose: 
+      - 3100
     ports:
       - "3100:3100"
 
@@ -40,6 +58,7 @@ services:
     environment:
       RAILS_ENV: production
       # Postgres configuration section.
+      SECRET_KEY_BASE: b0b7b52a1b4f40cd38a235572b1b3c55e1cc734649b5168a80335d7171c32bc885a98a8483b59ad00f1bc8a66d6a4c015ec2d0b386da5ae54bb4754778ece57c
       SHRTBRED_DATABASE_NAME: shrtbred
       SHRTBRED_DATABASE_USER: shrtbred
       SHRTBRED_DATABASE_PASSWORD: shrtbred
@@ -47,7 +66,7 @@ services:
       # The port that the ruby server will be listening on. Defaults to 3000 by default
       SHRTBRED_PORT: 3100
       # Used for setting the base url. If it's not provided it will use shrtb.red by default
-      URL_BASE: localhost:3100
+      URL_BASE: localhost:3000
 # Declare the volumes that our application uses.
 volumes:
   db_data:

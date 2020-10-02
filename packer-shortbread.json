@@ -7,6 +7,12 @@
     },
     "provisioners": [
         {
+            "type":"shell",
+            "inline":[
+                "mkdir -p /opt/shrtbred/app/"
+            ]
+        },
+        {
             "type": "file",
             "sources": [
                 "./app",
@@ -18,7 +24,7 @@
                 "./spec",
                 "./vendor"
             ],
-            "destination": "/opt/app/"
+            "destination": "/opt/shrtbred/"
         },
         {
             "type": "file",
@@ -32,7 +38,7 @@
                 "./Rakefile",
                 "./README.md"
             ],
-            "destination": "/opt/app/"
+            "destination": "/opt/shrtbred/"
         },
         {
             "type": "shell",
@@ -45,9 +51,9 @@
                 "curl -sL https://deb.nodesource.com/setup_12.x | bash - ",
                 "apt install -y nodejs",
                 "gem install rails bundler",
-                "cd /opt/app && bundle install",
-                "chmod +x /opt/app/entrypoint.sh",
-                "chown -R {{user `username`}}:{{user `username`}} /opt/app"
+                "cd /opt/shrtbred && bundle install",
+                "chmod +x /opt/shrtbred/entrypoint.sh",
+                "chown -R {{user `username`}}:{{user `username`}} /opt/shrtbred"
             ]
         }
     ],
@@ -58,7 +64,7 @@
             "commit": true,
             "changes": [
                 "USER {{user `username`}}",
-                "WORKDIR /opt/app",
+                "WORKDIR /opt/shrtbred",
                 "ENV RAILS_ENV production",
                 "ENV SHRTBRED_DATABASE_NAME shrtbred",
                 "ENV SHRTBRED_DATABASE_USER shrtbred",
@@ -69,7 +75,7 @@
                 "EXPOSE 3000",
                 "ONBUILD RUN date",
                 "CMD [\"bash]\",\"-c\"]",
-                "ENTRYPOINT /opt/app/entrypoint.sh"
+                "ENTRYPOINT /opt/shrtbred/entrypoint.sh"
             ]
         }
     ],
@@ -77,7 +83,7 @@
         {
             "type": "docker-tag",
             "repository": "shrtbred",
-            "tag": "latest"
+            "tags": "latest"
         }
     ]
 }

@@ -7,7 +7,7 @@ if ENV["URL_BASE"] == "" || ENV["URL_BASE"] == nil
   URL_BASE = "shrtb.red/"
 else
   if !/\/$/.match(ENV["URL_BASE"])
-    URL_BASE = ENV["URL_BASE"]  +"/"
+    URL_BASE = ENV["URL_BASE"]  + "/"
   else
     URL_BASE = ENV["URL_BASE"] 
   end 

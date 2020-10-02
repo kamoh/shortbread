@@ -34,12 +34,11 @@ fi
 echo ""
 if [[ -n $SHRTBRED_SEED_DATA ]] ; then 
 echo "== Populating the environment with seed data =="
-./bin/rails db:seed 
+rails db:seed 
 echo "== Finished Populating the environment with seed data =="
 else
 echo "== Will not try to populate environment with seed information =="
 fi
 echo ""
 
-
-./bin/rails s -p $SHRTBRED_PORT -b '0.0.0.0'
+rails s -p $SHRTBRED_PORT -b '0.0.0.0'
