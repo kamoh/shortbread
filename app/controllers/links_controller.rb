@@ -29,16 +29,16 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = Link.new(link_params) 
+    @link = Link.new(link_params)
     @link = @link.setup_short_url(@link)
 
     respond_to do |format|
       if @link.save
         format.html { redirect_to link_path(@link), notice: 'Link was successfully created.' }
-        format.json
+        # format.json
       else
         format.html { render action: 'new' }
-        format.json { render :json => { :error => @link.errors.full_messages }, :status => 422 }
+        # format.json { render :json => { :error => @link.errors.full_messages }, :status => 422 }
       end
     end
   end
